@@ -8,11 +8,41 @@
 
 /* Begin PBXBuildFile section */
 		8F58E8EB2FDB18340063055E /* codemagic.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 8F58E8EA2FDB18340063055E /* codemagic.yaml */; };
+		8F58EC1F2FE016620063055E /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8F58EC1E2FE016620063055E /* ConfettiSwiftUI */; };
+		8F58EC222FE016690063055E /* AppsFlyerLib in Frameworks */ = {isa = PBXBuildFile; productRef = 8F58EC212FE016690063055E /* AppsFlyerLib */; };
+		8F58EC252FE0168E0063055E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8F58EC242FE0168E0063055E /* FirebaseMessaging */; };
+		8F58EC312FE018120063055E /* LineExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8F58EC2A2FE018120063055E /* LineExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8F58EC392FE0181D0063055E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8F58EC382FE0181D0063055E /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8F58EC2F2FE018120063055E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F059BDB2FD8496B008C7797 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F58EC292FE018120063055E;
+			remoteInfo = LineExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8F58EC362FE018120063055E /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8F58EC312FE018120063055E /* LineExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8F059BE32FD8496B008C7797 /* BroodLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BroodLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F58E8EA2FDB18340063055E /* codemagic.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = codemagic.yaml; sourceTree = "<group>"; };
+		8F58EC2A2FE018120063055E /* LineExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LineExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -22,6 +52,13 @@
 				Info.plist,
 			);
 			target = 8F059BE22FD8496B008C7797 /* BroodLine */;
+		};
+		8F58EC352FE018120063055E /* Exceptions for "LineExtension" folder in "LineExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8F58EC292FE018120063055E /* LineExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -34,6 +71,14 @@
 			path = BroodLine;
 			sourceTree = "<group>";
 		};
+		8F58EC2B2FE018120063055E /* LineExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8F58EC352FE018120063055E /* Exceptions for "LineExtension" folder in "LineExtension" target */,
+			);
+			path = LineExtension;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +86,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F58EC252FE0168E0063055E /* FirebaseMessaging in Frameworks */,
+				8F58EC1F2FE016620063055E /* ConfettiSwiftUI in Frameworks */,
+				8F58EC222FE016690063055E /* AppsFlyerLib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F58EC272FE018120063055E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F58EC392FE0181D0063055E /* FirebaseMessaging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +108,8 @@
 			children = (
 				8F58E8EA2FDB18340063055E /* codemagic.yaml */,
 				8F059BE52FD8496B008C7797 /* BroodLine */,
+				8F58EC2B2FE018120063055E /* LineExtension */,
+				8F58EC372FE0181D0063055E /* Frameworks */,
 				8F059BE42FD8496B008C7797 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,8 +118,16 @@
 			isa = PBXGroup;
 			children = (
 				8F059BE32FD8496B008C7797 /* BroodLine.app */,
+				8F58EC2A2FE018120063055E /* LineExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8F58EC372FE0181D0063055E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,20 +140,48 @@
 				8F059BDF2FD8496B008C7797 /* Sources */,
 				8F059BE02FD8496B008C7797 /* Frameworks */,
 				8F059BE12FD8496B008C7797 /* Resources */,
+				8F58EC362FE018120063055E /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8F58EC302FE018120063055E /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				8F059BE52FD8496B008C7797 /* BroodLine */,
 			);
 			name = BroodLine;
 			packageProductDependencies = (
+				8F58EC1E2FE016620063055E /* ConfettiSwiftUI */,
+				8F58EC212FE016690063055E /* AppsFlyerLib */,
+				8F58EC242FE0168E0063055E /* FirebaseMessaging */,
 			);
 			productName = BroodLine;
 			productReference = 8F059BE32FD8496B008C7797 /* BroodLine.app */;
 			productType = "com.apple.product-type.application";
+		};
+		8F58EC292FE018120063055E /* LineExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F58EC322FE018120063055E /* Build configuration list for PBXNativeTarget "LineExtension" */;
+			buildPhases = (
+				8F58EC262FE018120063055E /* Sources */,
+				8F58EC272FE018120063055E /* Frameworks */,
+				8F58EC282FE018120063055E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8F58EC2B2FE018120063055E /* LineExtension */,
+			);
+			name = LineExtension;
+			packageProductDependencies = (
+				8F58EC382FE0181D0063055E /* FirebaseMessaging */,
+			);
+			productName = LineExtension;
+			productReference = 8F58EC2A2FE018120063055E /* LineExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -102,6 +196,9 @@
 					8F059BE22FD8496B008C7797 = {
 						CreatedOnToolsVersion = 16.4;
 					};
+					8F58EC292FE018120063055E = {
+						CreatedOnToolsVersion = 16.4;
+					};
 				};
 			};
 			buildConfigurationList = 8F059BDE2FD8496B008C7797 /* Build configuration list for PBXProject "BroodLine" */;
@@ -113,12 +210,18 @@
 			);
 			mainGroup = 8F059BDA2FD8496B008C7797;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8F58EC1D2FE016620063055E /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+				8F58EC202FE016690063055E /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */,
+				8F58EC232FE0168E0063055E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8F059BE42FD8496B008C7797 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				8F059BE22FD8496B008C7797 /* BroodLine */,
+				8F58EC292FE018120063055E /* LineExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -132,6 +235,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8F58EC282FE018120063055E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -142,7 +252,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8F58EC262FE018120063055E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8F58EC302FE018120063055E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F58EC292FE018120063055E /* LineExtension */;
+			targetProxy = 8F58EC2F2FE018120063055E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		8F059BED2FD8496C008C7797 /* Debug */ = {
@@ -272,6 +397,8 @@
 				INFOPLIST_FILE = BroodLine/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Brood Line";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need your permission to use this feature in app.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Brood Line uses your photo library so you can attach photos of birds, pairs, broods and awards to your records.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Brood Line uses tracking data to improve app performance, enhance the user experience, analyze how features are used, and support ongoing updates and optimization. This information also helps maintain app reliability, security, and overall service quality.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -286,7 +413,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.3;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lineinbroodsstorage.BroodLine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -313,6 +440,8 @@
 				INFOPLIST_FILE = BroodLine/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Brood Line";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need your permission to use this feature in app.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Brood Line uses your photo library so you can attach photos of birds, pairs, broods and awards to your records.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Brood Line uses tracking data to improve app performance, enhance the user experience, analyze how features are used, and support ongoing updates and optimization. This information also helps maintain app reliability, security, and overall service quality.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -327,7 +456,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.3;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lineinbroodsstorage.BroodLine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -338,6 +467,67 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Release;
+		};
+		8F58EC332FE018120063055E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LineExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = LineExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lineinbroodsstorage.BroodLine.LineExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8F58EC342FE018120063055E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LineExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = LineExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lineinbroodsstorage.BroodLine.LineExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -362,7 +552,66 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		8F58EC322FE018120063055E /* Build configuration list for PBXNativeTarget "LineExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F58EC332FE018120063055E /* Debug */,
+				8F58EC342FE018120063055E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8F58EC1D2FE016620063055E /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		8F58EC202FE016690063055E /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppsFlyerSDK/AppsFlyerFramework";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.18.0;
+			};
+		};
+		8F58EC232FE0168E0063055E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.14.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8F58EC1E2FE016620063055E /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F58EC1D2FE016620063055E /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
+		};
+		8F58EC212FE016690063055E /* AppsFlyerLib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F58EC202FE016690063055E /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */;
+			productName = AppsFlyerLib;
+		};
+		8F58EC242FE0168E0063055E /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F58EC232FE0168E0063055E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		8F58EC382FE0181D0063055E /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F58EC232FE0168E0063055E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8F059BDB2FD8496B008C7797 /* Project object */;
 }

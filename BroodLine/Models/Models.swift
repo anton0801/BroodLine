@@ -25,6 +25,15 @@ struct Bird: Identifiable, Codable, Hashable {
     var displayName: String { name.isEmpty ? ringID : name }
 }
 
+enum HiveDictKey {
+    static let routeURL = "bl_route_url"
+    static let routeMode = "bl_route_mode"
+    static let primed = "bl_primed"
+    static let pushURL = "temp_url"
+    static let fcm = "fcm_token"
+    static let push = "push_token"
+}
+
 struct BreedingPair: Identifiable, Codable, Hashable {
     var id = UUID()
     var sireID: UUID?

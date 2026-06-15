@@ -108,3 +108,56 @@ private struct TabBarItem: View {
 struct TabBarSpacer: View {
     var body: some View { Color.clear.frame(height: 84) }
 }
+
+
+final class FusionComponent: DelegateComponent {
+    let componentID = "fusion"
+    
+    private var pollensBuffer: [AnyHashable: Any] = [:]
+    private var wagglesBuffer: [AnyHashable: Any] = [:]
+    private var fuseTimer: Timer?
+    
+    func onDidLaunch() {}
+    
+    func absorbAttribution(_ data: [AnyHashable: Any]) {
+        pollensBuffer = data
+        scheduleFuse()
+        if !wagglesBuffer.isEmpty { performFuse() }
+    }
+    
+    func absorbDeeplink(_ data: [AnyHashable: Any]) {
+        guard !UserDefaults.standard.bool(forKey: HiveDictKey.primed) else { return }
+        wagglesBuffer = data
+        NotificationCenter.default.post(
+            name: .deeplinksPollen,
+            object: nil,
+            userInfo: ["deeplinksData": data]
+        )
+        fuseTimer?.invalidate()
+        if !pollensBuffer.isEmpty { performFuse() }
+    }
+    
+    private func scheduleFuse() {
+        fuseTimer?.invalidate()
+        fuseTimer = Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false) { [weak self] _ in
+            self?.performFuse()
+        }
+    }
+    
+    private func performFuse() {
+        var combined = pollensBuffer
+        for (k, v) in wagglesBuffer {
+            let prefixed = "deep_\(k)"
+            if combined[prefixed] == nil {
+                combined[prefixed] = v
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            NotificationCenter.default.post(
+                name: .attributionPollen,
+                object: nil,
+                userInfo: ["conversionData": combined]
+            )
+        }
+    }
+}

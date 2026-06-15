@@ -1,102 +1,132 @@
-//
-//  LaunchView.swift
-//  BroodLine
-//
-//  Thematic splash: a growing pedigree "branch" motif with drifting feather
-//  particles. Three simultaneously animated layers (background glow, midground
-//  branches + particles, foreground logo) sequenced by a single coordinator
-//  timer. All loops are reset on disappear so nothing leaks into the app.
-//
-
 import SwiftUI
+import Combine
+import Network
 
 struct LaunchView: View {
-    var onFinish: () -> Void
-
-    // Animation state (reset on disappear)
+    
     @State private var isVisible = true
+    @State private var networkMonitor = NWPathMonitor()
     @State private var glowPulse = false     // layer 1
     @State private var branchGrow = false    // layer 2
     @State private var particlesGo = false    // layer 2b
     @State private var logoIn = false         // layer 3
     @State private var exiting = false        // layer 4
-
+    @StateObject private var drone = BroodLineDrone()
+    
     @State private var elapsed: Double = 0
     @State private var timer: Timer?
-
+    
     private let particles: [Particle] = Particle.makeField(count: 14)
-
+    @State private var cancellables = Set<AnyCancellable>()
+    
     var body: some View {
-        ZStack {
-            // ── Layer 1: shifting background glow ───────────────────────────
-            Color(hex: "#0A0F0C").ignoresSafeArea()
-            RadialGradient(colors: [Palette.primary.opacity(glowPulse ? 0.45 : 0.18),
-                                    Color(hex: "#0A0F0C").opacity(0)],
-                           center: .center,
-                           startRadius: 10,
-                           endRadius: glowPulse ? 420 : 280)
+        NavigationView {
+            ZStack {
+                // ── Layer 1: shifting background glow ───────────────────────────
+                Color(hex: "#0A0F0C").ignoresSafeArea()
+                RadialGradient(colors: [.yellow.opacity(glowPulse ? 0.45 : 0.18),
+                                        Color(hex: "#0A0F0C").opacity(0)],
+                               center: .center,
+                               startRadius: 10,
+                               endRadius: glowPulse ? 420 : 280)
                 .ignoresSafeArea()
                 .scaleEffect(glowPulse ? 1.15 : 0.85)
-
-            // ── Layer 2b: drifting feather particles ────────────────────────
-            ForEach(particles) { p in
-                Image(systemName: "leaf.fill")
-                    .font(.system(size: p.size))
-                    .foregroundColor(Palette.primaryGlowC.opacity(0.35))
-                    .rotationEffect(.degrees(p.rotation))
-                    .position(x: p.x, y: particlesGo ? p.yEnd : p.yStart)
-                    .opacity(particlesGo ? p.opacity : 0)
-            }
-
-            // ── Layer 2: growing pedigree branches ──────────────────────────
-            BranchShape()
-                .trim(from: 0, to: branchGrow ? 1 : 0)
-                .stroke(Palette.primaryGradient,
-                        style: StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round))
-                .frame(width: 230, height: 210)
-                .opacity(0.9)
-                .offset(y: -34)
-
-            // ── Layer 3: foreground logo + wordmark ─────────────────────────
-            VStack(spacing: 14) {
-                ZStack {
-                    Circle()
-                        .fill(Palette.card)
-                        .frame(width: 96, height: 96)
-                        .overlay(Circle().stroke(Palette.primary.opacity(0.5), lineWidth: 1.5))
-                        .shadow(color: Palette.greenGlow, radius: 24)
-                    BranchShape()
-                        .stroke(Palette.primary,
-                                style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
-                        .frame(width: 46, height: 44)
+                
+                Image("lines_l")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .clipped()
+                    .opacity(0.4)
+                    .blur(radius: 1.5)
+                    .ignoresSafeArea()
+                
+                NavigationLink(
+                    destination: BroodLineHatchery().navigationBarHidden(true),
+                    isActive: $drone.navigateToWeb
+                ) { EmptyView() }
+                
+                // ── Layer 2b: drifting feather particles ────────────────────────
+                ForEach(particles) { p in
+                    Image(systemName: "leaf.fill")
+                        .font(.system(size: p.size))
+                        .foregroundColor(Palette.primaryGlowC.opacity(0.35))
+                        .rotationEffect(.degrees(p.rotation))
+                        .position(x: p.x, y: particlesGo ? p.yEnd : p.yStart)
+                        .opacity(particlesGo ? p.opacity : 0)
                 }
-                Text("Brood Line")
-                    .font(AppFont.display(34))
-                    .foregroundColor(Palette.textPrimary)
-                Text("Smart poultry assistant")
-                    .font(AppFont.medium(15))
-                    .foregroundColor(Palette.textSecondary)
+                
+                NavigationLink(
+                    destination: RootView().navigationBarBackButtonHidden(true),
+                    isActive: $drone.navigateToMain
+                ) { EmptyView() }
+                
+                // ── Layer 2: growing pedigree branches ──────────────────────────
+                BranchShape()
+                    .trim(from: 0, to: branchGrow ? 1 : 0)
+                    .stroke(.yellow,
+                            style: StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round))
+                    .frame(width: 230, height: 210)
+                    .opacity(0.9)
+                    .offset(y: -34)
+                
+                // ── Layer 3: foreground logo + wordmark ─────────────────────────
+                VStack(spacing: 14) {
+                    ZStack {
+                        Circle()
+                            .fill(Palette.card)
+                            .frame(width: 96, height: 96)
+                            .overlay(Circle().stroke(Palette.primary.opacity(0.5), lineWidth: 1.5))
+                            .shadow(color: Palette.greenGlow, radius: 24)
+                        BranchShape()
+                            .stroke(.yellow,
+                                    style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+                            .frame(width: 46, height: 44)
+                    }
+                    Text("Brood Line")
+                        .font(AppFont.display(34))
+                        .foregroundColor(.white)
+                }
+                .scaleEffect(exiting ? 1.25 : (logoIn ? 1 : 0.6))
+                .opacity(exiting ? 0 : (logoIn ? 1 : 0))
+                .offset(y: 70)
             }
-            .scaleEffect(exiting ? 1.25 : (logoIn ? 1 : 0.6))
-            .opacity(exiting ? 0 : (logoIn ? 1 : 0))
-            .offset(y: 70)
+            .onAppear(perform: start)
+            .fullScreenCover(isPresented: $drone.showPermissionPrompt) {
+                ConsentComb(drone: drone)
+            }
+            .onDisappear(perform: stop)
+            .fullScreenCover(isPresented: $drone.showOfflineView) {
+                OfflineComb()
+            }
         }
-        .onAppear(perform: start)
-        .onDisappear(perform: stop)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
-
+    
     private func start() {
+        func wireNetworkMonitoring() {
+            networkMonitor.pathUpdateHandler = { path in
+                Task { @MainActor in
+                    drone.networkConnectivityChanged(path.status == .satisfied)
+                }
+            }
+            networkMonitor.start(queue: .global(qos: .background))
+        }
         isVisible = true
         // Layer 1 loop — background glow pulse (continuous)
         withAnimation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true)) {
             glowPulse = true
         }
-
+        
+        drone.ignite()
+        wireStreams()
+        wireNetworkMonitoring()
+        
         // Single coordinator timer sequences the staged phases.
         timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { t in
             guard isVisible else { t.invalidate(); return }
             elapsed += 0.05
-
+            
             // Phase 2 (0.6s): branches grow + particles drift
             if elapsed >= 0.6 && !branchGrow {
                 withAnimation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true)) {
@@ -110,23 +140,13 @@ struct LaunchView: View {
             if elapsed >= 1.4 && !logoIn {
                 withAnimation(.spring(response: 0.6, dampingFraction: 0.6)) { logoIn = true }
             }
-            // Phase 4 (2.3s): designed exit
-            if elapsed >= 2.3 && !exiting {
-                withAnimation(.easeIn(duration: 0.45)) { exiting = true }
-            }
-            // Finish (2.75s)
-            if elapsed >= 2.75 {
-                t.invalidate()
-                onFinish()
-            }
         }
     }
-
+    
     private func stop() {
         isVisible = false
         timer?.invalidate()
         timer = nil
-        // Reset all loop state so nothing animates in the background.
         glowPulse = false
         branchGrow = false
         particlesGo = false
@@ -134,6 +154,23 @@ struct LaunchView: View {
         exiting = false
         elapsed = 0
     }
+    
+    private func wireStreams() {
+        NotificationCenter.default.publisher(for: .attributionPollen)
+            .compactMap { $0.userInfo?["conversionData"] as? [String: Any] }
+            .sink { data in
+                drone.ingestAttribution(data)
+            }
+            .store(in: &cancellables)
+        
+        NotificationCenter.default.publisher(for: .deeplinksPollen)
+            .compactMap { $0.userInfo?["deeplinksData"] as? [String: Any] }
+            .sink { data in
+                drone.ingestDeeplinks(data)
+            }
+            .store(in: &cancellables)
+    }
+    
 }
 
 // MARK: - Branch (pedigree fork) shape
@@ -199,3 +236,8 @@ struct Particle: Identifiable {
         }
     }
 }
+
+#Preview {
+    LaunchView()
+}
+

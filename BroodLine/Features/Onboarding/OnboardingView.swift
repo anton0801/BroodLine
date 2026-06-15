@@ -1,12 +1,3 @@
-//
-//  OnboardingView.swift
-//  BroodLine
-//
-//  Three-page onboarding. Each page is a distinct SF-Symbol + Shape + gradient
-//  scene with its own interaction: (1) tap-to-burst, (2) drag-to-ring,
-//  (3) drag parallax. Skip + Next always visible, custom dot indicators.
-//
-
 import SwiftUI
 import Foundation
 

@@ -185,3 +185,31 @@ struct PhotosView: View {
         showPicker = true
     }
 }
+
+
+struct OfflineComb: View {
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                Color.black.ignoresSafeArea()
+                
+                Image("lines_e")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .ignoresSafeArea()
+                    .opacity(0.9)
+                    .blur(radius: 3)
+                
+                errorView
+            }
+        }
+        .ignoresSafeArea()
+    }
+    
+    private var errorView: some View {
+        Image("linesee")
+            .resizable()
+            .frame(width: 320, height: 260)
+    }
+}

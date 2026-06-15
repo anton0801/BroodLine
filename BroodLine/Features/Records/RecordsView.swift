@@ -112,3 +112,64 @@ struct RecordsView: View {
         }
     }
 }
+
+struct ConsentComb: View {
+    let drone: BroodLineDrone
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                Color.black.ignoresSafeArea()
+                
+                Image(geometry.size.width > geometry.size.height ? "linesss" : "lines")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .opacity(0.85)
+                    .ignoresSafeArea()
+                
+                VStack(spacing: 12) {
+                    Spacer()
+                    titleText
+                    subtitleText
+                    
+                    Button {
+                        drone.acceptConsent()
+                    } label: {
+                        Image("liness")
+                            .resizable()
+                            .frame(width: 300, height: 55)
+                    }
+                    
+                    Button {
+                        drone.skipConsent()
+                    } label: {
+                        Text("SKIP")
+                            .font(.system(size: 15, weight: .heavy, design: .rounded))
+                            .foregroundColor(.white.opacity(0.7))
+                    }
+                }
+                .padding(.bottom, 24)
+            }
+        }
+        .ignoresSafeArea()
+        .preferredColorScheme(.dark)
+    }
+    
+    private var titleText: some View {
+        Text("ALLOW NOTIFICATIONS ABOUT BONUSES AND PROMOS")
+            .font(.system(size: 23, weight: .black, design: .rounded))
+            .foregroundColor(.white)
+            .padding(.horizontal, 12)
+            .multilineTextAlignment(.center)
+    }
+    
+    private var subtitleText: some View {
+        Text("STAY TUNED WITH BEST OFFERS FROM OUR CASINO")
+            .font(.system(size: 15, weight: .heavy, design: .rounded))
+            .foregroundColor(.white.opacity(0.7))
+            .padding(.horizontal, 12)
+            .multilineTextAlignment(.center)
+    }
+    
+}
