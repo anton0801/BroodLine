@@ -12,6 +12,13 @@ enum HistoryFilter: String, CaseIterable, Identifiable, Hashable {
     var type: HistoryType? { self == .all ? nil : HistoryType(rawValue: rawValue) }
 }
 
+enum HistoryFilterNew: String, CaseIterable, Identifiable, Hashable {
+    case all, paired, ringed
+    var id: String { rawValue }
+    var label: String { self == .all ? "All" : rawValue.capitalized }
+    var type: HistoryType? { self == .all ? nil : HistoryType(rawValue: rawValue) }
+}
+
 struct HistoryView: View {
     @EnvironmentObject var store: DataStore
     @State private var filter: HistoryFilter = .all

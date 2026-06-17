@@ -81,6 +81,18 @@ struct CalendarView: View {
         }
     }
 
+    private var gridis: some View {
+        LazyVGrid(columns: columns, spacing: 8) {
+            ForEach(Array(days.enumerated()), id: \.offset) { _, day in
+                if let day = day {
+                    dayCell(day)
+                } else {
+                    Color.clear.frame(height: 46)
+                }
+            }
+        }
+    }
+
     private func dayCell(_ day: Date) -> some View {
         let isSelected = cal.isDate(day, inSameDayAs: selected)
         let isToday = cal.isDateInToday(day)

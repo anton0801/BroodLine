@@ -55,4 +55,21 @@ struct MoreView: View {
         }
         .buttonStyle(PlainButtonStyle())
     }
+    
+    private func newlinK<Destination: View>(_ title: String, _ icon: String, _ color: Color,
+                                         @ViewBuilder destination: @escaping () -> Destination) -> some View {
+        NavigationLink(destination: destination()) {
+            VStack(alignment: .leading, spacing: 12) {
+                IconBadge(icon: icon, color: color, size: 44)
+                Text(title).font(AppFont.medium(15)).foregroundColor(Palette.textPrimary)
+                    .lineLimit(1).minimumScaleFactor(0.8)
+            }
+            .frame(maxWidth: .infinity, minHeight: 110, alignment: .topLeading)
+            .padding(16)
+            .background(Palette.card)
+            .cornerRadius(16)
+            .overlay(RoundedRectangle(cornerRadius: 18).stroke(Palette.border, lineWidth: 1))
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
 }
